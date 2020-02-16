@@ -1,15 +1,18 @@
+package tasks;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
-public class MergeSortImpl {
-    public static void main(String[] args) {
-        Integer[] array = new Integer[]{2, 8, 5, 3, 9, 4, 1, 7};
-//        Integer[] array = new Integer[]{2, 8, 5, 3, 9, 4, 1};
+public class P01Sorting {
+    public static void main(String[] args) throws IOException {
+        BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
+        Integer[] numbers = Arrays.stream(consoleReader.readLine().split(" ")).map(Integer::parseInt).toArray(n -> new Integer[n]);
+        consoleReader.close();
 
-        System.out.println("Before sort: " + String.join(" | ", Arrays.stream(array).map(e -> e + "").collect(Collectors.toList())));
-
-        MergeSort.sort(array);
-        System.out.println("After sort:  " + String.join(" | ", Arrays.stream(array).map(e -> e + "").collect(Collectors.toList())));
+        MergeSort.sort(numbers);
+        System.out.println(getArrayAsString(numbers, " "));
     }
 
     public static class MergeSort {
@@ -21,7 +24,7 @@ public class MergeSortImpl {
         }
 
         //recursively breaks down the array into smaller parts. Well, it doesn't exactly break it down, just works with
-        //the indices, which will be used to get create smaller arrays and do the merge sort.
+        //the indices, which will be used to create smaller arrays and do the merge sort.
         private static void sort(Integer[] array, int low, int high) {
             if (low >= high) {
                 return;
@@ -112,6 +115,13 @@ private static void sort(Integer[] array, int low, int mid, int high) {
         }
     }
  */
+
+    private static String getArrayAsString(Integer[] array, String delimiter) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < array.length; i++) {
+            result.append(array[i]).append(delimiter);
+        }
+
+        return result.substring(0, result.length() - delimiter.length());
+    }
 }
-
-
